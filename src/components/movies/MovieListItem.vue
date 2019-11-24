@@ -1,11 +1,8 @@
 <template>
   <div class="col-12 col-md-6 col-lg-3 my-3">
 
-      <img class="movie--poster my-3" v-bind:src="movie.poster_url" v-bind:alt="movie.title">
-
-      <h3>{{movie.title}}</h3>
-
-      <button class="btn btn-primary" data-toggle="modal" v-bind:data-target="`#gg-${movie.id}`">영화 정보 상세보기</button>
+      <a href="" data-toggle="modal" v-bind:data-target="`#gg-${movie.id}`"><img class="movie--poster my-3" v-bind:src="movie.poster_url" v-bind:alt="movie.title"></a>
+      <h4>{{movie.title}} ❤️</h4>
       
       <MovieListItemModal :movie="movie"/>
   </div>

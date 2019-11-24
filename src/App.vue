@@ -4,6 +4,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <span v-if="isAuthenticated">      
+        <router-link to="/signup">mypage</router-link> |
         <a href="#" @click.prevent="logout">Logout</a>
       </span>
       <span v-else>
@@ -12,28 +13,22 @@
       </span>
     </div>
     
-    <div class="container">
+    <div class="container my-3">
       <router-view/>
-      <MovieList v-bind:movies="movies" v-bind:genres="genres"/>
     </div>
   </div>
 </template>
 
 
 <script>
-import MovieList from "./components/movies/MovieList.vue";
-import axios from 'axios'
 
 export default {
   name: 'App',
   components: {
-    MovieList,
   },
   data: function(){
     return {
       isAuthenticated: this.$session.has('jwt'),
-      movies: [],
-      genres: [],
     }
   },
   methods: {
@@ -45,29 +40,6 @@ export default {
   updated: function(){
     this.isAuthenticated = this.$session.has('jwt')
   },
-  mounted() {
-    const movies_URL = "http://127.0.0.1:8000/movies/moviesinfo/"
-    axios
-      .get(movies_URL)
-      .then(response => {
-        console.log(response)
-        this.movies = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    
-    const genres_URL = "http://127.0.0.1:8000/movies/genresinfo/"
-    axios
-      .get(genres_URL)
-      .then(response => {
-        this.genres = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })  
-  },
-
 }
 </script>
 

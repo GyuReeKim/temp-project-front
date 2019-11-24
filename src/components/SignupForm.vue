@@ -72,7 +72,7 @@ export default {
       if (this.credential.password1.length < 8) {this.errors.push("비밀번호는 8글자가 넘어야합니다.")}
       if (!this.credential.username) {this.errors.push("아이디를 입력해주세요.")}
       if (this.credential.password1 !== this.credential.password2) {this.errors.push("비밀번호가 서로 다릅니다.")}
-      // 이메일 에러 추가하기
+      if (!this.credential.email.includes("@")) {this.errors.push("올바르지않은 이메일 형식입니다.")}
       if (this.errors.length === 0) {
         return true
       }
