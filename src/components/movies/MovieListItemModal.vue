@@ -17,14 +17,14 @@
 
           <hr style="background-color:white"/>
           <div>평점 : {{movie.score}}</div>
-          <span>등급 : {{movie.watchgrade.name}}</span>
+          <span>등급 : {{movie.grade.name}}</span>
           <div>
           <span>장르 : </span>
-          <span v-for="genre in movie.genres" :key="genre.id">{{genre.name}} </span>
+          <span v-for="genre in movie.movie_genres" :key="genre.id">{{genre.name}} </span>
           </div>
           <div>
           <span>감독 : </span>
-          <span v-for="director in movie.directors" :key="director.id">{{director.name}} </span>
+          <span v-for="director in movie.movie_directors" :key="director.id">{{director.name}} </span>
           </div>
           <p>누적 관람객 : {{movie.audience}}명</p>
           <p>{{movie.summary}}</p>

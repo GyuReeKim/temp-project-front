@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>🎬 영화 검색 🎬</h3>
+    <h3>🎬 장르별 영화 🎬</h3>
     <select class="form-control" v-model="selectedGenreId">
       <option value="">전체보기</option>
       <option v-for="genre in genres" :key="genre.id" :value="genre.id">{{genre.name}}</option>
@@ -30,10 +30,9 @@ export default {
   computed: {
     onselectedGenreMovies: function(){      
       if (this.selectedGenreId === ''){
-        return this.genres[0].movies
-      } else {
-        // 배열안에 찾고싶은 값이 있을 때 includes()사용        
-        return this.genres[this.selectedGenreId-1].movies
+        return this.movies
+      } else {       
+        return this.genres[this.selectedGenreId - 1].movies
       }
     }
   }

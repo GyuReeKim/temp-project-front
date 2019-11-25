@@ -21,7 +21,7 @@ export default {
     }
   },
   mounted() {    
-    const movies_URL = "http://127.0.0.1:8000/movies/movies/"
+    const movies_URL = "http://127.0.0.1:8000/api/v1/movies/movies/"
     axios
       .get(movies_URL)
       .then(response => {
@@ -32,7 +32,7 @@ export default {
         console.log(error)
       })  
 
-    const genres_URL = "http://127.0.0.1:8000/movies/genres/"
+    const genres_URL = "http://127.0.0.1:8000/api/v1/movies/genres/"
     axios
       .get(genres_URL)
       .then(response => {
