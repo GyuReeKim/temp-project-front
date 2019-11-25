@@ -7,7 +7,9 @@
     </select >
 
     <div class="row">
-      <MovieListItem v-for="movie in onselectedGenreMovies" :key="movie.id" :movie="movie"/>
+      <div class="col-12 col-md-6 col-lg-3 my-3"  v-for="movie in onselectedGenreMovies" :key="movie.id">
+        <MovieListItem :movie="movie" :genres="genres" />
+      </div>
     </div>
   </div>
 </template>

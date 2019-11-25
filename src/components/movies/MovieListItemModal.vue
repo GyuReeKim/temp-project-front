@@ -49,6 +49,7 @@ export default {
 
   props: {
     movie: Object,
+    genres: Object
   },
   data() {
     return {}
