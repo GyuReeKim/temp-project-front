@@ -2,7 +2,8 @@
   <div class="col-12 col-md-6 col-lg-3 my-3">
 
       <a href="" data-toggle="modal" v-bind:data-target="`#gg-${movie.id}`"><img class="movie--poster my-3" v-bind:src="movie.poster_url" v-bind:alt="movie.title"></a>
-      <h4>{{movie.title}} ❤️</h4>
+      <h4>{{movie.title}} 
+        ❤️</h4>
       
       <MovieListItemModal :movie="movie"/>
   </div>

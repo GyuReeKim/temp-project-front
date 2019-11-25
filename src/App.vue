@@ -2,9 +2,10 @@
   <div id="app">
 
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Genre Movie</router-link> |   
       <span v-if="isAuthenticated">      
-        <router-link to="/signup">mypage</router-link> |
+        <router-link to="/recommend">Recommend Movie</router-link> |
+        <router-link to="/mypage">mypage</router-link> |
         <a href="#" @click.prevent="logout">Logout</a>
       </span>
       <span v-else>
