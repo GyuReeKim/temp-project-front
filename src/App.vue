@@ -2,7 +2,7 @@
   <div id="app">
 
     <div id="nav">
-      <router-link to="/">Genre Movie</router-link> |   
+      <router-link to="/">Genre & Director</router-link> |   
       <span v-if="isAuthenticated">      
         <router-link to="/recommend">Recommend Movie</router-link> |
         <router-link to="/mypage">mypage</router-link> |

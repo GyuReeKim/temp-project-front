@@ -13,6 +13,7 @@
           
           
           <hr style="background-color:white"/>
+          {{movie}}
           <p class="text-center">DETAIL</p>
           <div>평점 : {{movie.score}}</div>
           <span>등급 : {{movie.grade.name}}</span>
@@ -70,7 +71,7 @@
 
 <script>
 export default {
-  name: 'movielistitemmodal',
+  name: 'Directorlistitemmodal',
 
   props: {
     movie: Object,
