@@ -124,9 +124,11 @@ export default {
   mounted() {
     // 영화가 가지고 있는 리뷰들을 가져와서,
     axios
-      .get("")
+      .get(`http://127.0.0.1:8000/api/v1/movies/reviews/${this.movie.id}/`)
       .then(res => {
         // 가져왔으면, 그 데이터를 현재 data의 reviews에 저장.
+        console.log(res.data);
+        this.reviews = res;
       })
       .catch(err => console.log(err));
   }
