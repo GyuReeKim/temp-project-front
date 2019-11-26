@@ -10,12 +10,10 @@
         </div>
         <div class="modal-body">
           <img class="movie--poster my-3" v-bind:src="movie.poster_url" v-bind:alt="movie.title" style="width:50%">
-          <div>
-          <input type="text" class="mx-3">
-          <button type="button" class="btn btn-success" >댓글생성</button>
-          </div>
-
+          
+          
           <hr style="background-color:white"/>
+          <p class="text-center">DETAIL</p>
           <div>평점 : {{movie.score}}</div>
           <span>등급 : {{movie.grade.name}}</span>
           <div>
@@ -28,12 +26,31 @@
           </div>
           <p>누적 관람객 : {{movie.audience}}명</p>
           <p>{{movie.summary}}</p>
+
+
           <hr style="background-color:white"/>
           <p class="text-center">예고편</p>
           <iframe v-if="movie.video_url" :src="movie.video_url" frameborder="0" style="width:100% ;height:300px;"></iframe>
           <hr style="background-color:white"/>
           <p class="text-center">OST</p>
           <iframe v-if="movie.ost_url" :src="movie.ost_url" frameborder="0" style="width:100% ;height:300px;"></iframe>
+
+
+          <hr style="background-color:white"/>
+          <div>
+          <p class="text-center">REVIEW</p>
+          <div class="form-group">
+            <label for="comment">comment</label>
+            <input id="comment" class="form-control" type="text" v-model="review.comment">
+          </div>
+          <div class="form-group">
+            <label for="score">score</label>
+            <input id="score" class="form-control" type="number" v-model="review.score">
+          </div>
+          <button class="btn btn-primary" @click="createreview">리뷰생성</button>
+          </div>
+        
+    
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -52,7 +69,16 @@ export default {
     genres: Object
   },
   data() {
-    return {}
+    return {
+      review: {
+        comment: '',
+        socre: ''
+      }
+    }
+  },
+  methods: {
+    createreview(){
+    }
   }
 }
 </script>
