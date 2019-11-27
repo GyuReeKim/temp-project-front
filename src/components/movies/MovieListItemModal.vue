@@ -15,6 +15,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
         <div class="modal-body">
           <img
             class="movie--poster my-3"
@@ -22,7 +23,6 @@
             v-bind:alt="movie.title"
             style="width:50%"
           />
-
           <hr style="background-color:white" />
           <p class="text-center">DETAIL</p>
           <div>평점 : {{movie.score}}</div>
@@ -61,20 +61,22 @@
                 <input id="comment" class="form-control ml-3" type="text" v-model="review.comment" />
               </div>
               <div class="input-group my-3">
+
                 <label for="score">score :</label>
-                <input id="score" class="form-control ml-4" type="number" v-model="review.score" />
+                <input id="score" class="form-control ml-4" type="range" min="0" max="10" step="1" v-model="review.score" />
+                <font v-model="review.score">{{review.score}}</font>
               </div>
               <button class="btn btn-primary my-3" @click="createreview">리뷰생성</button>
             </div>
             <hr style="background-color:white" />
             <p class="text-center">REVIEW</p>
+
             <div>
               <div v-for="review in reviews" :key="review.id" class="my-3">
                 <p class="text-left">
                   [{{review.review_user['username']}}]
                   [{{review.score}}] {{review.comment}}
                 </p>
-                <!-- <p>{{review}}</p> -->
                 <div>
                   {{review.create_at}}
                   <button
@@ -98,6 +100,7 @@
 </template>
 
 <script>
+
 import axios from "axios";
 export default {
   name: "movielistitemmodal",
@@ -109,10 +112,10 @@ export default {
     return {
       review: {
         comment: "",
-        score: ""
+        score: "5"
       },
       isAuthenticated: this.$session.has("jwt"),
-      reviews: []
+      reviews: [],
     };
   },
   methods: {
@@ -191,7 +194,7 @@ export default {
         .catch(error => {
           console.log(error);
         });
-    }
+    },
   },
   mounted() {
     axios

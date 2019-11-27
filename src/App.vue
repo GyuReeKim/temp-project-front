@@ -5,7 +5,7 @@
       <router-link to="/">Genre & Director</router-link> |   
       <span v-if="isAuthenticated">      
         <router-link to="/recommend">Recommend Movie</router-link> |
-        <router-link to="/mypage">mypage</router-link> |
+        <router-link to="/mypage">{{username}}</router-link> |
         <a href="#" @click.prevent="logout">Logout</a>
       </span>
       <span v-else>
@@ -22,6 +22,7 @@
 
 
 <script>
+import jwtDecode from "jwt-decode";
 
 export default {
   name: 'App',
@@ -30,17 +31,28 @@ export default {
   data: function(){
     return {
       isAuthenticated: this.$session.has('jwt'),
+      username: '',
     }
   },
   methods: {
     logout: function(){
       this.$session.destroy()
       this.$router.push('/login')
+    },
+    getusername: function(){
+      this.$session.start();
+      const token = this.$session.get("jwt");
+      const decodedToken = jwtDecode(token);
+      this.username = decodedToken.username
     }
   },
   updated: function(){
     this.isAuthenticated = this.$session.has('jwt')
+    this.getusername()
   },
+  mounted(){
+    this.getusername()
+  }
 }
 </script>
 

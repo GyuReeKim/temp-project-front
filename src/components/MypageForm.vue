@@ -1,7 +1,9 @@
 <template>
   <div class="container">
+    <h3>😍{{username}}님의 페이지😍</h3>
+    <p>내가 등록한 평점</p>
     <div class="row">
-      <div class="col-4" v-for="review in reviews" :key="review.id">
+      <div class="col-12 col-md-6 col-lg-3 my-3" v-for="review in reviews" :key="review.id">
         <div class="card bg-dark text-white m-2">
           <img :src="review.movie.poster_url" class="card-img" style="opacity: 0.4" />
           <div class="card-img-overlay row align-items-center">
@@ -31,7 +33,8 @@ export default {
   name: "MypageForm",
   data() {
     return {
-      reviews: []
+      reviews: [],
+      username: '',
     };
   },
   methods: {
@@ -42,7 +45,7 @@ export default {
       const decodedToken = jwtDecode(token);
       // console.log(decodedToken)
       const user_id = decodedToken.user_id;
-      console.log(user_id);
+      // console.log(user_id);
 
       const requestHeader = {
         headers: {
@@ -53,9 +56,9 @@ export default {
       axios
         .get(`http://localhost:8000/api/v1/accounts/${user_id}/`, requestHeader)
         .then(response => {
-          console.log(response);
+          this.username =  response.data.username
           this.reviews = response.data.review_set;
-          console.log(this.reviews);
+          // console.log(this.reviews);
         })
         .catch(error => {
           console.log(error);

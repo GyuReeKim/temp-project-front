@@ -1,7 +1,5 @@
 <template>
   <div class="mypage">
-    <h3>😍마이페이지😍</h3>
-    <p>내가 등록한 평점</p>
     <MypageForm />
   </div>
 </template>

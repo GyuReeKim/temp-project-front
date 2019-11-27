@@ -22,7 +22,6 @@
             v-bind:alt="movie.title"
             style="width:50%"
           />
-
           <hr style="background-color:white" />
           <p class="text-center">DETAIL</p>
           <div>평점 : {{movie.score}}</div>
