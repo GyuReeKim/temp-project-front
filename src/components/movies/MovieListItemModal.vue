@@ -52,23 +52,35 @@
           </span>
           <span v-else>😱</span>
 
+          <hr style="background-color:white" />
+          <p class="text-center">REVIEW</p>
           <span v-if="isAuthenticated">
-            <hr style="background-color:white" />
             <div>
-              <p class="text-center">REVIEW</p>
               <div class="input-group">
-                <label for="comment">comment</label>
+                <label for="comment" style>comment</label>
                 <input id="comment" class="form-control" type="text" v-model="review.comment" />
               </div>
               <div class="input-group">
                 <label for="score">score</label>
                 <input id="score" class="form-control" type="number" v-model="review.score" />
               </div>
-              <button class="btn btn-primary" @click="createreview">리뷰생성</button>
-              <div>{{reviews}}</div>
+              <button class="btn btn-primary my-3" @click="createreview">리뷰생성</button>
+              <!-- <div>{{reviews.data[0].movie}}</div> -->
+              <div v-for="review in reviews.data" :key="review.id" class="my-3">
+                <p v-if="review.movie === movie.id" class="text-left">
+                  [{{review.review_user['username']}}] [{{review.score}}] {{review.comment}}
+                  <button
+                    class="btn btn-success ml-3 mr-1"
+                    @click="updatereview(review)"
+                  >수정</button>
+                  <button class="btn btn-danger" @click="deletereview(review)">삭제</button>
+                </p>
+              </div>
             </div>
           </span>
+          <span v-else>로그인 후 볼 수 있습니다.</span>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
         </div>
@@ -81,7 +93,6 @@
 import axios from "axios";
 export default {
   name: "movielistitemmodal",
-
   props: {
     movie: Object,
     genres: Array
@@ -104,7 +115,6 @@ export default {
           Authorization: `JWT ${token}`
         }
       };
-
       axios
         .post(
           `http://127.0.0.1:8000/api/v1/movies/${this.movie.id}/reviews/`,
@@ -119,15 +129,61 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+
+    deletereview: function(review) {
+      const token = this.$session.get("jwt");
+      const header = {
+        headers: {
+          Authorization: `JWT ${token}`
+        }
+      };
+      axios
+        .delete(
+          `http://127.0.0.1:8000/api/v1/movies/reviews/${review.id}/`,
+          header
+        )
+        .then(response => {
+          console.log(response);
+          const targetreview = this.reviews.find(function(e1) {
+            return e1 === review;
+          });
+          const idx = this.reviews.indexOf(targetreview);
+          if (idx > -1) {
+            this.reviews.splice(idx, 1);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
+    updatereview: function(review) {
+      const token = this.$session.get("jwt");
+      const header = {
+        headers: {
+          Authorization: `JWT ${token}`
+        }
+      };
+      axios
+        .put(
+          `http://127.0.0.1:8000/api/v1/movies/reviews/${review.id}/`,
+          this.review,
+          header
+        )
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   mounted() {
-    // 영화가 가지고 있는 리뷰들을 가져와서,
     axios
-      .get(`http://127.0.0.1:8000/api/v1/movies/reviews/${this.movie.id}/`)
+      .get(`http://127.0.0.1:8000/api/v1/movies/reviews/`)
       .then(res => {
-        // 가져왔으면, 그 데이터를 현재 data의 reviews에 저장.
-        console.log(res.data);
+        console.log(res);
         this.reviews = res;
       })
       .catch(err => console.log(err));
