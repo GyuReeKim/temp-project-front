@@ -57,23 +57,28 @@
           <span v-if="isAuthenticated">
             <div>
               <div class="input-group">
-                <label for="comment" style>comment</label>
-                <input id="comment" class="form-control" type="text" v-model="review.comment" />
+                <label for="comment">comment :</label>
+                <input id="comment" class="form-control ml-3" type="text" v-model="review.comment" />
               </div>
-              <div class="input-group">
-                <label for="score">score</label>
-                <input id="score" class="form-control" type="number" v-model="review.score" />
+              <div class="input-group my-3">
+                <label for="score">score :</label>
+                <input id="score" class="form-control ml-4" type="number" v-model="review.score" />
               </div>
               <button class="btn btn-primary my-3" @click="createreview">리뷰생성</button>
-              <!-- <div>{{reviews.data[0].movie}}</div> -->
-              <div v-for="review in reviews.data" :key="review.id" class="my-3">
+            </div>
+            <hr style="background-color:white" />
+            <p class="text-center">REVIEW</p>
+            <div>
+              <div v-for="review in reviews" :key="review.id" class="my-3">
                 <p v-if="review.movie === movie.id" class="text-left">
-                  [{{review.review_user['username']}}] [{{review.score}}] {{review.comment}}
+                  [{{review.review_user['username']}}]
+                  [{{review.score}}] {{review.comment}}
+                  {{review.create_at}}
                   <button
                     class="btn btn-success ml-3 mr-1"
                     @click="updatereview(review)"
                   >수정</button>
-                  <button class="btn btn-danger" @click="deletereview(review)">삭제</button>
+                  <button class="btn btn-danger mr-1" @click="deletereview(review)">삭제</button>
                 </p>
               </div>
             </div>
@@ -123,8 +128,9 @@ export default {
         )
         .then(response => {
           const data = response.data;
-
+          console.log(data);
           this.reviews.push(data);
+          console.log(this.reviews);
         })
         .catch(error => {
           console.log(error);
@@ -143,10 +149,9 @@ export default {
           `http://127.0.0.1:8000/api/v1/movies/reviews/${review.id}/`,
           header
         )
-        .then(response => {
-          console.log(response);
-          const targetreview = this.reviews.find(function(e1) {
-            return e1 === review;
+        .then(() => {
+          const targetreview = this.reviews.find(function(el) {
+            return el === review;
           });
           const idx = this.reviews.indexOf(targetreview);
           if (idx > -1) {
@@ -157,7 +162,11 @@ export default {
           console.log(error);
         });
     },
-
+    update: function(data) {
+      console.log(data);
+      this.comment = data.comment;
+      this.score = data.score;
+    },
     updatereview: function(review) {
       const token = this.$session.get("jwt");
       const header = {
@@ -179,12 +188,15 @@ export default {
         });
     }
   },
+  // watch: {
+  //   reviews
+  // },
   mounted() {
     axios
       .get(`http://127.0.0.1:8000/api/v1/movies/reviews/`)
       .then(res => {
-        console.log(res);
-        this.reviews = res;
+        console.log(res.data);
+        this.reviews = res.data;
       })
       .catch(err => console.log(err));
   }
