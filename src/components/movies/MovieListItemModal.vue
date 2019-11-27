@@ -70,16 +70,19 @@
             <p class="text-center">REVIEW</p>
             <div>
               <div v-for="review in reviews" :key="review.id" class="my-3">
-                <p v-if="review.movie === movie.id" class="text-left">
-                  [{{review.review_user['username']}}]
+                <p class="text-left">
+                  <!-- [{{review.review_user['username']}}] -->
                   [{{review.score}}] {{review.comment}}
+                </p>
+                <p>{{review}}</p>
+                <div>
                   {{review.create_at}}
                   <button
-                    class="btn btn-success ml-3 mr-1"
+                    class="btn btn-success mx-2"
                     @click="updatereview(review)"
                   >수정</button>
-                  <button class="btn btn-danger mr-1" @click="deletereview(review)">삭제</button>
-                </p>
+                  <button class="btn btn-danger" @click="deletereview(review)">삭제</button>
+                </div>
               </div>
             </div>
           </span>
@@ -127,6 +130,7 @@ export default {
           header
         )
         .then(response => {
+          console.log(response);
           const data = response.data;
           console.log(data);
           this.reviews.push(data);
@@ -193,9 +197,8 @@ export default {
   // },
   mounted() {
     axios
-      .get(`http://127.0.0.1:8000/api/v1/movies/reviews/`)
+      .get(`http://127.0.0.1:8000/api/v1/movies/${this.movie.id}/reviewall/`)
       .then(res => {
-        console.log(res.data);
         this.reviews = res.data;
       })
       .catch(err => console.log(err));
