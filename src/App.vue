@@ -58,24 +58,27 @@ export default {
 
 
 <style>
+@font-face { font-family: 'HangeulNuri-Bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/HangeulNuri-Bold.woff') format('woff'); font-weight: normal; font-style: normal; }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  /* font-family: 'Avenir', Helvetica, Arial, sans-serif; */
+  font-family: 'HangeulNuri-Bold';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #ffffff;
 }
 
 #nav {
   padding: 30px;
+  background-color: rgb(148, 24, 20);
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: rgba(65, 165, 83, 0.747);
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #ffe96e;
 }
 </style>
