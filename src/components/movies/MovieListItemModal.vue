@@ -135,6 +135,8 @@ export default {
           console.log(data);
           this.reviews.push(data);
           console.log(this.reviews);
+          this.comment = "";
+          this.score = "";
         })
         .catch(error => {
           console.log(error);
