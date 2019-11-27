@@ -71,10 +71,10 @@
             <div>
               <div v-for="review in reviews" :key="review.id" class="my-3">
                 <p class="text-left">
-                  <!-- [{{review.review_user['username']}}] -->
+                  [{{review.review_user['username']}}]
                   [{{review.score}}] {{review.comment}}
                 </p>
-                <p>{{review}}</p>
+                <!-- <p>{{review}}</p> -->
                 <div>
                   {{review.create_at}}
                   <button
@@ -130,19 +130,16 @@ export default {
           header
         )
         .then(response => {
-          console.log(response);
           const data = response.data;
-          console.log(data);
           this.reviews.push(data);
-          console.log(this.reviews);
           this.comment = "";
           this.score = "";
+          // 왜 초기화 안됨ㅠ 수정 필요
         })
         .catch(error => {
           console.log(error);
         });
     },
-
     deletereview: function(review) {
       const token = this.$session.get("jwt");
       const header = {
@@ -168,11 +165,6 @@ export default {
           console.log(error);
         });
     },
-    update: function(data) {
-      console.log(data);
-      this.comment = data.comment;
-      this.score = data.score;
-    },
     updatereview: function(review) {
       const token = this.$session.get("jwt");
       const header = {
@@ -187,16 +179,20 @@ export default {
           header
         )
         .then(response => {
-          console.log(response);
+          const targetreview = this.reviews.find(function(el) {
+            return el === review;
+          });
+          const idx2 = this.reviews.indexOf(targetreview);
+          this.reviews[idx2].comment = response.data.comment
+          this.reviews[idx2].score = response.data.score
+
+
         })
         .catch(error => {
           console.log(error);
         });
     }
   },
-  // watch: {
-  //   reviews
-  // },
   mounted() {
     axios
       .get(`http://127.0.0.1:8000/api/v1/movies/${this.movie.id}/reviewall/`)
