@@ -5,7 +5,6 @@
     </a>
     <h4>
       {{movie.title}}
-      ❤️
     </h4>
 
     <DirectorListItemModal :movie="movie" :genres="genres" :directors="directors" />

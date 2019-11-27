@@ -5,7 +5,6 @@
     </a>
     <h4>
       {{movie.title}}
-      ❤️
     </h4>
 
     <MovieListItemModal :movie="movie" :genres="genres" />

@@ -23,22 +23,35 @@
             v-bind:alt="movie.title"
             style="width:50%"
           />
+          
           <hr style="background-color:white" />
+        <div>
           <p class="text-center">DETAIL</p>
-          <div>평점 : {{movie.score}}</div>
-          <span>등급 : {{movie.grade.name}}</span>
-          <div>
-            <span>장르 :</span>
-            <span v-for="genre in movie.movie_genres" :key="genre.id">{{genre.name}}</span>
+          <div class="mb-1">평점 : {{movie.score}}</div>
+          <div class="mb-1">등급 : {{movie.grade.name}}</div>
+          <div class="mb-1">
+            <span>장르 : </span>
+              <span v-for="(genre, index) in movie.movie_genres" :key="genre.id">
+              <span v-if="index !== movie.movie_genres.length-1"> {{genre.name}},</span>
+              <span v-else> {{genre.name}}</span>
+            </span>
           </div>
-          <div>
-            <span>감독 :</span>
-            <span v-for="director in movie.movie_directors" :key="director.id">{{director.name}}</span>
+          <div class="mb-1">
+            <span>감독 : </span>
+              <span v-for="(director, index) in movie.movie_directors" :key="director.id">
+              <span v-if="index !== movie.movie_directors.length-1"> {{director.name}},</span>
+              <span v-else> {{director.name}}</span>
+            </span>
           </div>
-          <p>누적 관람객 : {{movie.audience}}명</p>
-          <p>{{movie.summary}}</p>
+          <div class="mb-1">누적 관람객 : {{Number(movie.audience).toLocaleString()}}명</div>
+          <div class="mb-1">
+            <div>줄거리</div>
+            <p>{{movie.summary}}</p>
+          </div>
+        </div>
 
           <hr style="background-color:white" />
+          
           <p class="text-center">예고편</p>
           <span v-if="movie.video_url">
             <iframe :src="movie.video_url" frameborder="0" style="width:100% ;height:300px;"></iframe>

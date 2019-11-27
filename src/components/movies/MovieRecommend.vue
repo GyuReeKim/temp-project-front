@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <h3>😍{{username}}님의 추천영화😍</h3>
+    <h3>👍 {{username}}고객님의 맞춤영화 👍</h3>
       <div class="card bg-dark text-white m-2">
+        <div v-if="choice.poster_url">
           <img :src="choice.poster_url" class="card-img" style="opacity: 0.4" />
           <div class="card-img-overlay row align-items-center">
             <div class="col">
@@ -11,6 +12,10 @@
             </div>
           </div>
         </div>
+        <div v-else>
+          <p>리뷰를 작성해주세요</p>
+        </div>
+      </div>
   </div>
 </template>
 
